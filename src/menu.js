@@ -3,85 +3,55 @@
 let createMenu = () => {
 
     createDiv();
-    let ul = createUl();
-    createHomeLink(ul);
-    createAboutLink(ul);
-    createContactsLink(ul);
-    createProductsLink(ul);
-    createPartnersLink(ul);
+    let rootElement = createUl();
+    createLinkInMarkedList(rootElement, 'Home');
+    createLinkInMarkedList(rootElement, 'About');
+    createLinkInMarkedList(rootElement, 'Contacts');
+    createLinkInMarkedList(rootElement, 'Products');
+    createLinkInMarkedList(rootElement, 'Partners');
 };
 
 let createDiv = () => {
-    
+
     let wrapper = document.createElement('div');
     wrapper.id = 'wrapper';
+
     let parentElement = document.body;
     parentElement.appendChild(wrapper);
 };
 
 let createUl = () => {
 
-    let ul = document.createElement('ul');
-    ul.className = 'menu';
-    document.getElementById('wrapper').appendChild(ul);
-    return ul;
+    let rootElement = document.createElement('ul');
+    rootElement.className = 'menu';
+
+    document.getElementById('wrapper').appendChild(rootElement);
+    return rootElement;
 };
 
-let createHomeLink = (ul) => {
+/*
+    This function creates marked down list in rootElement with reference to hrefText
+*/
 
-    let a = document.createElement('a');
-    a.text = 'Home';
-    a.setAttribute('href', '#home');
-    let li = document.createElement('li');  
-    li.appendChild(a);
-    ul.appendChild(li);
-};
+let createLinkInMarkedList = (rootElement, hrefText) => {
 
-let createAboutLink = (ul) => {
+     let a = document.createElement('a');
+     a.text = hrefText;
+     a.setAttribute('href', '#' + hrefText.toLowerCase());
 
-    let a = document.createElement('a');
-    a.text = 'About';
-    a.setAttribute('href', '#about');
-    let li = document.createElement('li');  
-    li.appendChild(a);
-    ul.appendChild(li);
-};
+     let li = document.createElement('li');  
+     li.appendChild(a);
 
-let createContactsLink = (ul) => {
-
-    let a = document.createElement('a');
-    a.text = 'Contacts';
-    a.setAttribute('href', '#contacts');
-    let li = document.createElement('li');  
-    li.appendChild(a);
-    ul.appendChild(li);
-};
-
-let createProductsLink = (ul) => {
-
-    let a = document.createElement('a');
-    a.text = 'Products';
-    a.setAttribute('href', '#products');
-    let li = document.createElement('li');  
-    li.appendChild(a);
-    ul.appendChild(li);
-};
-
-let createPartnersLink = (ul) => {
-
-    let a = document.createElement('a');
-    a.text = 'Partners';
-    a.setAttribute('href', '#partners');
-    let li = document.createElement('li');  
-    li.appendChild(a);
-    ul.appendChild(li);
+     rootElement.appendChild(li);
 };
 
 let drawActiveMenuItems = () => {
 
     let activeMenuItems = document.getElementsByTagName('a');
     for (let i = 0; i < activeMenuItems.length; i++) {
+
         let href = activeMenuItems[i].href;
+
         if (href.indexOf(location.hash)+1) {
             activeMenuItems[i].style.color = 'red';
             return true;
@@ -92,12 +62,5 @@ let drawActiveMenuItems = () => {
 
 export default {
     createMenu,
-    createDiv,
-    createUl,
-    createHomeLink,
-    createAboutLink,
-    createContactsLink,
-    createProductsLink,
-    createPartnersLink,
     drawActiveMenuItems
 };
